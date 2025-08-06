@@ -2,20 +2,23 @@
 """
 Created on Sun Aug  3 21:38:24 2025
 
-@author: BEST
+@author: HarivonyR
+
+Use : This script will help retrieving result of google search using piloterr API
+Output ; List object of the result with title, link, and snippets
+
 """
 
 from credential import x_api_key
 import requests
 
 
-def scrape_page_results(key_word="NLP", page=1, limit=20,organic_results=True):
+def google_search(key_word="NLP", page=1, limit=20):
     """
-    set organic_results=False if a raw response is needed
-    
+    this function will return the google search result found with the inputed keyword
     """
     url = "https://piloterr.com/api/v2/google/search"
-    
+
     payload = {
         "query": str(key_word),
         "page": page,          # page define the page numbering
@@ -25,34 +28,29 @@ def scrape_page_results(key_word="NLP", page=1, limit=20,organic_results=True):
         "x-api-key": x_api_key,
         "Content-Type": "application/json"
     }
-    
+
     response = requests.post(url, json=payload, headers=headers)
-    
-    print(f"[{key_word}] : page {page} scraped | results {len(response.json().get('organic_results', []))} founds")
-    
-    if organic_results:
-        return response.json().get('organic_results', [])
-    
-    else :
-        return response.json()
-    
+    organic_result = response.json().get('organic_results', [])
+    print(f"[{key_word}] : page {page} scraped | {len(organic_result)} results found")
+    return organic_result
+
 def get_search_results(key_word="NLP",page_limit=10,result_limit=20):
+    """
+    this function will loop fetching result in each google result page
+    """
     results=[]
     for i in range(page_limit):
-        response = scrape_page_results(key_word=key_word,page=i,limit=result_limit)
+        response = google_search(key_word=key_word,page=i,limit=result_limit)
         results.extend(response)
-        
     return results
 
-def test():
+
+if __name__ =="__main__":
     """
     Pipeline function test (Optional)
     """
     # Get result of a search in page 1
     #page_results = scrape_page_results(key_word="Trump", page=1, limit=100)
-    search_results = get_search_results(key_word="Boing 777",page_limit=20,result_limit=100)
+    dict_results = get_search_results(key_word="Bitcoin -inurl:youtube.com",page_limit=4,result_limit=100)
 
-    
-if __name__ =="__main__":
-    test()
     
