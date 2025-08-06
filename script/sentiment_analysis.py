@@ -22,6 +22,9 @@ os.environ["HF_HOME"] = "D:/HuggingFace"
 # step 2. optimise ressources
 # pip install huggingface_hub[hf_xet]
 
+# step 3. enable GPU computation
+
+
 # step 3. import model
 from transformers import AutoTokenizer
 from transformers import AutoModelForSequenceClassification
@@ -37,7 +40,7 @@ def get_sentiment_score(text):
 
     # Get model output (logits)
     output = model(**encoded_text)
-    scores = output[0][0].detach().numpy()
+    scores = output[0][0].detach().numpy()   # use GPU for faster computation
     scores = softmax(scores)
 
     # Print the sentiment scores
