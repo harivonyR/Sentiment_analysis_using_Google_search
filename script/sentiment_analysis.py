@@ -57,11 +57,12 @@ def get_sentiment_score(text):
 
 
 if __name__ == "__main__":
-    texte = "I'm felling a little bite bad after the therapy"
+    texte = "I overclocked my toaster once… now it only burns data."
     score = get_sentiment_score(texte)
-    print(score)
+    # output : {'roberta_neg': 0.7536289, 'roberta_neu': 0.21952808, 'roberta_pos': 0.026842946, 'compound': -0.72678596}
+    
 
-#tips : manage your storage by cleaning your cache after execution
-#C:\Users\<USERNAME>\.cache\huggingface\hub
+#Step 4 : manage your storage by cleaning your cache after execution
+#:\Users\<USERNAME>\.cache\huggingface\hub
 
 
