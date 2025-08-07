@@ -50,7 +50,7 @@ if __name__ =="__main__":
     Pipeline function test (Optional)
     """
     # Get result of a search in page 1
-    #page_results = scrape_page_results(key_word="Trump", page=1, limit=100)
+    page_results = get_search_results(key_word="Trump", page_limit=1, limit=100)
     dict_results = get_search_results(key_word="Bitcoin -inurl:youtube.com",page_limit=4,result_limit=100)
 
     
